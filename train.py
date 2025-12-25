@@ -8,8 +8,8 @@ import os
 # DATA CONFIGURATIONS
 ##----------------------------
 
-DATA_CONFIG=""
-MODEL_TYPE=""
+DATA_CONFIG="configs/rdd.yaml"
+MODEL_TYPE="yolov8m.pt"
 EPOCHS=50
 IMAGE_SIZE=640
 BATCH_SIZE=8
