@@ -36,7 +36,7 @@ def main():
     model.train(
         data=DATA_CONFIG,
         epochs=EPOCHS,
-        imagsz=IMAGE_SIZE,
+        imgsz=IMAGE_SIZE,
         batch=BATCH_SIZE,
         project=PROJECT_DIR,
         name=RUN_NAME,
