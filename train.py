@@ -33,17 +33,19 @@ def main():
     ##----------------------------------------
     model = YOLO(MODEL_TYPE)
 
-    model.train(
-        data=DATA_CONFIG,
-        epochs=EPOCHS,
-        imgsz=IMAGE_SIZE,
-        batch=BATCH_SIZE,
-        project=PROJECT_DIR,
-        name=RUN_NAME,
-        device=0,
-        exist_ok=True,
-        pretrained=True,
-    )
+model.train(
+    data=DATA_CONFIG,
+    epochs=EPOCHS,
+    imgsz=IMAGE_SIZE,
+    batch=BATCH_SIZE,
+    project=PROJECT_DIR,
+    name=RUN_NAME,
+    device=0,
+    exist_ok=True,
+    pretrained=True,
+    cache=False   # 🔥 THIS LINE IS MANDATORY
+)
+
     print(f"✅ Training complete! Results saved to {PROJECT_DIR}/{RUN_NAME}")
  if __name__ == "__main__":
         main()
