@@ -45,6 +45,5 @@ def main():
         pretrained=True,
     )
     print(f"✅ Training complete! Results saved to {PROJECT_DIR}/{RUN_NAME}")
-
-    if __name__ == "__main__":
+ if __name__ == "__main__":
         main()
