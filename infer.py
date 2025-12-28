@@ -6,11 +6,11 @@ from pathlib import Path
 # ==========================================
 #  CONFIGURATION (The "Settings" Object)
 # ==========================================
-MODEL_PATH = ""  # Use 'best', not 'last'
-TEST_IMAGES_DIR = ""  # Folder of unseen images
-OUTPUT_DIR = ""  # Where .txt results go
-CONF_THRESHOLD = 0.25  # Min confidence to report
-IMG_SIZE = 640  # Must match training size
+MODEL_PATH = "RDD_BASELINE/weights/best.pt"
+TEST_IMAGES_DIR = "/content/drive/MyDrive/randomized_dataset/test/images"
+OUTPUT_DIR = "submissions"
+CONF_THRESHOLD = 0.25
+IMG_SIZE = 640
 
 
 def main():
