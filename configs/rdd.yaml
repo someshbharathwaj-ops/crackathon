@@ -1,0 +1,11 @@
+path: /content/drive/MyDrive/randomized_dataset
+
+train: train/images
+val: val/images
+
+names:
+  0: longitudinal_crack
+  1: transverse_crack
+  2: alligator_crack
+  3: other_corruption
+  4: pothole
