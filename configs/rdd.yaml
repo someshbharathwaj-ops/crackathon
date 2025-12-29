@@ -1,15 +1,14 @@
-# Kaggle dataset root
-# Root directory of dataset (ABSOLUTE PATH FOR KAGGLE)
-path: /kaggle/working/crackathon/data
+# Kaggle dataset root (THIS MUST MATCH INPUT PANEL NAME)
+path: /kaggle/input/crackathon
 
-# Image directories (relative to path)
-train: images/train
-val: images/val
+# Image directories relative to path
+train: train/images
+val: val/images
 
 # Number of classes
 nc: 5
 
-# Class names (ORDER MUST MATCH LABEL IDS)
+# Class names (order MUST match label ids)
 names:
   0: longitudinal_crack
   1: transverse_crack
