@@ -45,6 +45,7 @@ model.train(
   
 )
 
-    print(f"✅ Training complete! Results saved to {PROJECT_DIR}/{RUN_NAME}")
- if __name__ == "__main__":
-        main()
+    print(f"✅ Training complete! Results saved to {PROJECT_DIR}/{RUN_NAME}"
+          
+if __name__ == "__main__":
+    main()
