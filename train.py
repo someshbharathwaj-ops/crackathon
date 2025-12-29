@@ -35,7 +35,7 @@ def main():
     model = YOLO(MODEL_TYPE)
 
 
-model.train(
+    model.train(
     data=DATA_CONFIG,
     epochs=EPOCHS,
     imgsz=IMAGE_SIZE,
@@ -45,7 +45,7 @@ model.train(
     device=0,          # Kaggle GPU
     exist_ok=True,
     pretrained=True
-)
+    )
 
   
 
