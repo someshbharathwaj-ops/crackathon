@@ -6,9 +6,9 @@ from pathlib import Path
 # ==========================================
 #  CONFIGURATION (The "Settings" Object)
 # ==========================================
-MODEL_PATH = "/content/crackathon/RDD_BASELINE/weights/best.pt"
-TEST_IMAGES_DIR = "/content/drive/MyDrive/crackathon/data/images/test"
-OUTPUT_DIR = "/content/crackathon/submissions"
+MODEL_PATH = "/kaggle/working/crackathon/RDD_BASELINE/weights/best.pt"
+TEST_IMAGES_DIR = "/kaggle/input/crackathon/test/images"
+OUTPUT_DIR = "/kaggle/working/crackathon/submissions"
 CONF_THRESHOLD = 0.25
 IMG_SIZE = 640
 
