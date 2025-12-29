@@ -1,8 +1,11 @@
-path: /content/drive/MyDrive/randomized_dataset
+# Root of dataset
+path: /content/drive/MyDrive/crackathon/data
 
-train: train/images
-val: val/images
+# Train / Val images
+train: images/train
+val: images/val
 
+# Classes (order must match labels)
 names:
   0: longitudinal_crack
   1: transverse_crack
