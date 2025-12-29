@@ -6,9 +6,9 @@ from pathlib import Path
 # ==========================================
 #  CONFIGURATION (The "Settings" Object)
 # ==========================================
-MODEL_PATH = "RDD_BASELINE/weights/best.pt"
-TEST_IMAGES_DIR = "/content/drive/MyDrive/randomized_dataset/test/images"
-OUTPUT_DIR = "submissions"
+MODEL_PATH = "/content/crackathon/RDD_BASELINE/weights/best.pt"
+TEST_IMAGES_DIR = "/content/drive/MyDrive/crackathon/data/images/test"
+OUTPUT_DIR = "/content/crackathon/submissions"
 CONF_THRESHOLD = 0.25
 IMG_SIZE = 640
 
