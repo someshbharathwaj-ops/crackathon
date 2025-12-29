@@ -43,7 +43,8 @@ model.train(
     device=0,
     exist_ok=True,
     pretrained=True,
-    cache=False   # 🔥 THIS LINE IS MANDATORY
+    cache="ram"
+   # 🔥 THIS LINE IS MANDATORY
 )
 
     print(f"✅ Training complete! Results saved to {PROJECT_DIR}/{RUN_NAME}")
