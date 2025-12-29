@@ -7,14 +7,13 @@ import os
 ## --------------------------
 # DATA CONFIGURATIONS
 ##----------------------------
-
-DATA_CONFIG="configs/rdd.yaml"
+DATA_CONFIG = "configs/rdd.yaml"
 MODEL_TYPE="yolov8m.pt"
 EPOCHS=50
 IMAGE_SIZE=640
 BATCH_SIZE=8
-PROJECT_DIR=os.getcwd()
-RUN_NAME="RDD_BASELINE"
+PROJECT_DIR = "/content/crackathon"
+
 
 ##------------------------------------------
 ##RUNING
@@ -43,8 +42,7 @@ model.train(
     device=0,
     exist_ok=True,
     pretrained=True,
-    cache="ram"
-   # 🔥 THIS LINE IS MANDATORY
+  
 )
 
     print(f"✅ Training complete! Results saved to {PROJECT_DIR}/{RUN_NAME}")
