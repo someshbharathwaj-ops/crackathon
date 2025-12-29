@@ -1,11 +1,9 @@
-# Root of dataset
-path: /content/drive/MyDrive/crackathon/data
+# Kaggle dataset root
+path: /kaggle/input/crackathon
 
-# Train / Val images
-train: images/train
-val: images/val
+train: train/images
+val: val/images
 
-# Classes (order must match labels)
 names:
   0: longitudinal_crack
   1: transverse_crack
