@@ -8,11 +8,13 @@ import os
 # DATA CONFIGURATIONS
 ##----------------------------
 DATA_CONFIG = "configs/rdd.yaml"
-MODEL_TYPE="yolov8m.pt"
-EPOCHS=50
-IMAGE_SIZE=640
-BATCH_SIZE=8
-PROJECT_DIR = "/content/crackathon"
+MODEL_TYPE = "yolov8m.pt"
+EPOCHS = 50
+IMAGE_SIZE = 640
+BATCH_SIZE = 8
+PROJECT_DIR = "/kaggle/working/crackathon"
+RUN_NAME = "RDD_BASELINE"
+
 
 
 ##------------------------------------------
@@ -32,6 +34,7 @@ def main():
     ##----------------------------------------
     model = YOLO(MODEL_TYPE)
 
+
 model.train(
     data=DATA_CONFIG,
     epochs=EPOCHS,
@@ -39,11 +42,13 @@ model.train(
     batch=BATCH_SIZE,
     project=PROJECT_DIR,
     name=RUN_NAME,
-    device="auto",
+    device=0,          # Kaggle GPU
     exist_ok=True,
-    pretrained=True,
-  
+    pretrained=True
 )
+
+  
+
 
     print(f"✅ Training complete! Results saved to {PROJECT_DIR}/{RUN_NAME}"
           
