@@ -39,7 +39,7 @@ model.train(
     batch=BATCH_SIZE,
     project=PROJECT_DIR,
     name=RUN_NAME,
-    device=0,
+    device="auto",
     exist_ok=True,
     pretrained=True,
   
