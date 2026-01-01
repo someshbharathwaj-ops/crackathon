@@ -1,92 +1,67 @@
-# train.py — RDD Improved Training Script (v2)
-
 from ultralytics import YOLO
 import os
 
-# ============================================================
-# CONFIGURATION
-# ============================================================
-
-# Dataset config
+# =========================
+# CONFIGURATION — V3
+# =========================
 DATA_CONFIG = "configs/rdd.yaml"
+MODEL_TYPE = "yolov8l.pt"
 
-# Model choice (upgrade later to yolov8l.pt if GPU allows)
-MODEL_TYPE = "yolov8m.pt"
-
-# Training parameters
-EPOCHS = 150              # ⬆️ More training
-IMAGE_SIZE = 768          # ⬆️ Better small-crack detection
-BATCH_SIZE = 4            # Reduced for higher resolution
-
-# Output
+EPOCHS = 150
+IMAGE_SIZE = 1024
+BATCH_SIZE = 4   # lower batch for high-res
 PROJECT_DIR = os.getcwd()
-RUN_NAME = "RDD_V2_IMPROVED"
+RUN_NAME = "RDD_V3_HIGHRES"
 
-# Device
-DEVICE = 0  # Kaggle GPU = 0, CPU = "cpu"
-
-# ============================================================
+# =========================
 # TRAINING
-# ============================================================
-
+# =========================
 def main():
-
     if not os.path.exists(DATA_CONFIG):
-        print(f"❌ Dataset config not found: {DATA_CONFIG}")
-        return
+        raise FileNotFoundError("Dataset config not found")
 
-    print(f"\n🚀 INITIALIZING TRAINING: {RUN_NAME}")
-    print(f"📦 Model: {MODEL_TYPE}")
-    print(f"🖼️ Image size: {IMAGE_SIZE}")
-    print(f"⏱️ Epochs: {EPOCHS}\n")
+    print(f"🚀 V3 TRAINING: {RUN_NAME}")
 
-    # Load model
     model = YOLO(MODEL_TYPE)
 
-    # Train
     model.train(
         data=DATA_CONFIG,
         epochs=EPOCHS,
         imgsz=IMAGE_SIZE,
         batch=BATCH_SIZE,
-
-        # Output
         project=PROJECT_DIR,
         name=RUN_NAME,
+
+        device=0,
+        pretrained=True,
         exist_ok=True,
 
-        # Hardware
-        device=DEVICE,
-        workers=8,
-        pretrained=True,
+        # 🔥 V3 TUNING
+        lr0=0.005,
+        lrf=0.01,
+        patience=50,
 
-        # 🔥 OPTIMIZATION FOR CRACKS 🔥
-        cls=1.5,                 # Emphasize class learning
+        hsv_h=0.015,
+        hsv_s=0.7,
+        hsv_v=0.4,
+
+        mosaic=0.8,
+        mixup=0.1,
+        copy_paste=0.1,
+
+        fliplr=0.5,
+        scale=0.5,
+        translate=0.1,
+
         box=7.5,
+        cls=0.5,
         dfl=1.5,
 
-        # 🔁 DATA AUGMENTATION
-        mosaic=1.0,
-        mixup=0.1,
-        degrees=10.0,
-        translate=0.1,
-        scale=0.5,
-        shear=0.0,
-        perspective=0.0,
-
-        # Training stability
-        patience=50,
-        deterministic=True,
-        seed=0,
-
-        # Logging
-        verbose=True,
-        plots=True
+        workers=8,
+        verbose=True
     )
 
-    print(f"\n✅ TRAINING COMPLETE")
-    print(f"📁 Results saved to: {PROJECT_DIR}/{RUN_NAME}")
-
+    print(f"✅ V3 Training finished: {PROJECT_DIR}/{RUN_NAME}")
 
 if __name__ == "__main__":
     main()
