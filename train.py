@@ -1,67 +1,120 @@
+# ============================================================
+#  RDD COMPETITION TRAINING SCRIPT — FINAL VERSION
+# ============================================================
+
 from ultralytics import YOLO
 import os
 
-# =========================
-# CONFIGURATION — V3
-# =========================
-DATA_CONFIG = "configs/rdd.yaml"
-MODEL_TYPE = "yolov8l.pt"
-
-EPOCHS = 150
-IMAGE_SIZE = 1024
-BATCH_SIZE = 4   # lower batch for high-res
+# -----------------------------
+# PATHS
+# -----------------------------
+DATA_CONFIG = "configs/rdd.yaml"   # dataset yaml
 PROJECT_DIR = os.getcwd()
-RUN_NAME = "RDD_V3_HIGHRES"
 
-# =========================
-# TRAINING
-# =========================
+# -----------------------------
+# MODEL SETTINGS
+# -----------------------------
+MODEL_TYPE = "yolov8l.pt"          # use large model for best mAP
+RUN_NAME = "RDD_V3_CHAMPION"
+
+# -----------------------------
+# TRAINING HYPERPARAMETERS
+# -----------------------------
+EPOCHS = 150
+IMG_SIZE = 1024                   # high-res for crack detection
+BATCH_SIZE = 4                    # safe for 16GB GPU
+DEVICE = 0                        # GPU
+
+# -----------------------------
+# ADVANCED AUGMENTATION
+# -----------------------------
+AUGMENT = dict(
+    mosaic=0.8,
+    mixup=0.1,
+    copy_paste=0.1,
+    erasing=0.4,
+    fliplr=0.5,
+    hsv_h=0.015,
+    hsv_s=0.7,
+    hsv_v=0.4,
+)
+
+# -----------------------------
+# OPTIMIZATION
+# -----------------------------
+OPTIMIZER = "AdamW"
+LR0 = 0.005
+WEIGHT_DECAY = 5e-4
+WARMUP_EPOCHS = 3
+PATIENCE = 50                     # early stopping
+WORKERS = 8
+
+# ============================================================
 def main():
+
+    # -----------------------------
+    # SAFETY CHECK
+    # -----------------------------
     if not os.path.exists(DATA_CONFIG):
-        raise FileNotFoundError("Dataset config not found")
+        raise FileNotFoundError(f"❌ Dataset config not found: {DATA_CONFIG}")
 
-    print(f"🚀 V3 TRAINING: {RUN_NAME}")
+    print(f"\n🚀 FINAL TRAINING RUN: {RUN_NAME}")
+    print(f"📦 Model: {MODEL_TYPE}")
+    print(f"🖼 Image size: {IMG_SIZE}")
+    print(f"🔁 Epochs: {EPOCHS}\n")
 
+    # -----------------------------
+    # LOAD MODEL
+    # -----------------------------
     model = YOLO(MODEL_TYPE)
 
+    # -----------------------------
+    # TRAIN
+    # -----------------------------
     model.train(
         data=DATA_CONFIG,
         epochs=EPOCHS,
-        imgsz=IMAGE_SIZE,
+        imgsz=IMG_SIZE,
         batch=BATCH_SIZE,
+        device=DEVICE,
+
         project=PROJECT_DIR,
         name=RUN_NAME,
-
-        device=0,
-        pretrained=True,
         exist_ok=True,
 
-        # 🔥 V3 TUNING
-        lr0=0.005,
-        lrf=0.01,
-        patience=50,
+        optimizer=OPTIMIZER,
+        lr0=LR0,
+        weight_decay=WEIGHT_DECAY,
 
-        hsv_h=0.015,
-        hsv_s=0.7,
-        hsv_v=0.4,
+        warmup_epochs=WARMUP_EPOCHS,
+        patience=PATIENCE,
+        workers=WORKERS,
 
-        mosaic=0.8,
-        mixup=0.1,
-        copy_paste=0.1,
+        pretrained=True,
+        cache=False,
 
-        fliplr=0.5,
-        scale=0.5,
-        translate=0.1,
+        # -------- AUGMENTATION --------
+        mosaic=AUGMENT["mosaic"],
+        mixup=AUGMENT["mixup"],
+        copy_paste=AUGMENT["copy_paste"],
+        erasing=AUGMENT["erasing"],
+        fliplr=AUGMENT["fliplr"],
+        hsv_h=AUGMENT["hsv_h"],
+        hsv_s=AUGMENT["hsv_s"],
+        hsv_v=AUGMENT["hsv_v"],
 
-        box=7.5,
-        cls=0.5,
-        dfl=1.5,
-
-        workers=8,
-        verbose=True
+        # -------- STABILITY --------
+        amp=True,
+        deterministic=True,
+        seed=42,
+        plots=True,
     )
 
-    print(f"✅ V3 Training finished: {PROJECT_DIR}/{RUN_NAME}")
+    print("\n🏁 TRAINING COMPLETE!")
+    print(f"📁 Results: {PROJECT_DIR}/{RUN_NAME}")
+    print(f"🏆 Best weights: {PROJECT_DIR}/{RUN_NAME}/weights/best.pt")
 
+
+# ============================================================
 if __name__ == "__main__":
     main()
